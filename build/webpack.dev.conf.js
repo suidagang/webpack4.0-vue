@@ -5,11 +5,15 @@ const FriendlyErrorsPlugin = require("friendly-errors-webpack-plugin");
 module.exports = merge(baseConfig, {
   mode: 'development',
   devtool: 'inline-source-map',
+  plugins: [
+    new FriendlyErrorsPlugin(),
+  ],
   devServer: {
     contentBase: path.resolve(__dirname, '../dist'),
     open: true,
     hot:true,
-    // quiet: true, // necessary for FriendlyErrorsPlugin
+    overlay:false,
+    quiet: true, // necessary for FriendlyErrorsPlugin
     clientLogLevel: "none"
    
   }
