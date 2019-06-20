@@ -3,11 +3,13 @@ const path = require('path');
 const baseConfig = require('./webpack.base.conf');
 const FriendlyErrorsPlugin = require("friendly-errors-webpack-plugin");
 const packageConfig = require("../package.json");
+const webpack = require("webpack")
 const port = '5555'
 module.exports = merge(baseConfig, {
   mode: 'development',
-  devtool: 'inline-source-map',
+  devtool: 'cheap-module-eval-source-map',
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new FriendlyErrorsPlugin({
       compilationSuccessInfo: {
         messages: [`You application is running here http://localhost:${port}`]
@@ -32,7 +34,7 @@ module.exports = merge(baseConfig, {
     hot: true,
     overlay: false,
     quiet: true, // necessary for FriendlyErrorsPlugin
-    clientLogLevel: "none",
+    clientLogLevel: "silent",
     port: port
 
   }

@@ -61,3 +61,6 @@ uglifyjs-webpack-plugin
 
 //稳定的包单独打包 DllPlugin和DllReferencePlugin
 //html自动引入文件插件 AddAssetHtmlPlugin的使用
+
+
+//new webpack.HotModuleReplacementPlugin()的作用是保持浏览器的样式，热更新之前的不便（很有用哦）

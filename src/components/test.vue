@@ -1,20 +1,24 @@
 <template>
   <div>
     <h1>Hello World!11222444</h1>
-    <button @click="btn" style="background:pink;">按钮</button>
-    <img  src="@/asset/img/1.png"/>
+    <button @click="btn" style="background:blue;">按钮</button>
+    <div>{{num}}</div>
   </div>
 </template>
 
 <script>
 export default {
   name: "App",
+  data(){
+    return {
+      num:0
+    }
+  },
   mounted() {
-    console.log("眭刚22222333");
   },
   methods:{
       btn(){
-        this.$router.push("/test")
+        this.num = this.num+2;
       }
   }
 };

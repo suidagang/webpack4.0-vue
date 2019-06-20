@@ -10,7 +10,7 @@ const uglifyjs = require('uglifyjs-webpack-plugin');
 
 const webpackConfig = merge(baseConfig, {
   mode: 'production',
-  devtool: 'cheap-source-map',
+  devtool: 'cheap-module-source-map',
   module: {
     rules: []
   },
