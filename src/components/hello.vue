@@ -14,8 +14,7 @@ export default {
   },
   methods:{
       btn(){
-          this.test();
-          console.log(12333344455566677755);
+          console.log(123);
       }
   }
 };

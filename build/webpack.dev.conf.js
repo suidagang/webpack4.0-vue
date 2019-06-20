@@ -2,19 +2,38 @@ const merge = require('webpack-merge');
 const path = require('path');
 const baseConfig = require('./webpack.base.conf');
 const FriendlyErrorsPlugin = require("friendly-errors-webpack-plugin");
+const packageConfig = require("../package.json");
+const port = '5555'
 module.exports = merge(baseConfig, {
   mode: 'development',
   devtool: 'inline-source-map',
   plugins: [
-    new FriendlyErrorsPlugin(),
+    new FriendlyErrorsPlugin({
+      compilationSuccessInfo: {
+        messages: [`You application is running here http://localhost:${port}`]
+      },
+      onErrors: function (severity, errors) {
+        if (severity !== "error") return;
+        const error = errors[0];
+        const filename = error.file && error.file.split("!").pop();
+        notifier.notify({
+          title: packageConfig.name,
+          message: severity + ": " + error.name,
+          subtitle: filename || "",
+          icon: path.join(__dirname, "logo.png")
+        });
+      },
+    })
+
   ],
   devServer: {
     contentBase: path.resolve(__dirname, '../dist'),
     open: true,
-    hot:true,
-    overlay:false,
+    hot: true,
+    overlay: false,
     quiet: true, // necessary for FriendlyErrorsPlugin
-    clientLogLevel: "none"
-   
+    clientLogLevel: "none",
+    port: port
+
   }
 });
