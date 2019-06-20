@@ -35,7 +35,9 @@ module.exports = merge(baseConfig, {
     overlay: false,
     quiet: true, // necessary for FriendlyErrorsPlugin
     clientLogLevel: "silent",
-    port: port
+    port: port,
+    host: 'localhost',//主机地址
+    compress: true//开发服务器是否启动gzip等压缩
 
   }
 });
