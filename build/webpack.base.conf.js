@@ -5,7 +5,9 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const devMode = process.env.NODE_ENV !== 'production';
 const webpack = require("webpack");
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
-const urlss = path.posix.join('static', 'fonts/[name].[hash:7].[ext]')
+function resolve(dir) {
+    return path.join(__dirname, "..", dir);
+}
 module.exports = {
     entry: {
         app: path.resolve(__dirname, '../src/main.js')
@@ -26,7 +28,11 @@ module.exports = {
             {
                 test: /\.js$/,
                 use: 'babel-loader',
-                exclude: /node_modules/
+                exclude: /node_modules/,
+                include: [
+                    resolve("src"),
+                    resolve("node_modules/webpack-dev-server/client")
+                ]
             },
             {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -87,13 +93,13 @@ module.exports = {
         // 告诉 Webpack 使用了哪些动态链接库
         new webpack.DllReferencePlugin({
             // 描述 lodash 动态链接库的文件内容
-            manifest: require('../public/vendor/elementUi.manifest.json')
+            manifest: require('../public/vendor/vendor.manifest.json')
         }),
         // 该插件将把给定的 JS 或 CSS 文件添加到 webpack 配置的文件中，并将其放入资源列表 html webpack插件注入到生成的 html 中。
         new AddAssetHtmlPlugin([
             {
                 // 要添加到编译中的文件的绝对路径，以及生成的HTML文件。支持globby字符串
-                filepath: require.resolve(path.resolve(__dirname, '../public/vendor/elementUi.dll.js')),
+                filepath: require.resolve(path.resolve(__dirname, '../public/vendor/vendor.dll.js')),
                 // 文件输出目录
                 outputPath: 'vendor',
                 // 脚本或链接标记的公共路径

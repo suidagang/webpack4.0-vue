@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Hello World!111</h1>
+    <h1>Hello World!11123333444</h1>
     <button @click="btn">按钮</button>
     <img  src="@/asset/img/1.png"/>
   </div>
@@ -10,18 +10,19 @@
 export default {
   name: "App",
   mounted() {
-    console.log("眭刚22222");
+    console.log("眭刚22222333");
   },
   methods:{
       btn(){
-          console.log(123333444555);
+          this.test();
+          console.log(12333344455566677755);
       }
   }
 };
 </script>
 
 <style lang='less' scoped>
-@clolor:red;
+@clolor:pink;
 html,
 body {
   padding: 0;

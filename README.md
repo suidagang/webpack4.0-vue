@@ -43,18 +43,21 @@ uglifyjs-webpack-plugin
 
 //代码分割splitChunks配置
  optimization: {
-        splitChunks: {
-            chunks: "all",
-            minSize: 30000, // 模块的最小体积
-            automaticNameDelimiter: '~', // 文件名的连接符
-            cacheGroups: { // 缓存组
-                vendors: {
-                    test: /[\\/]node_modules[\\/]/,
-                    priority: 1
-                }
-            },
+    splitChunks: {
+        chunks: "all",
+        minSize: 30000, // 模块的最小体积
+        automaticNameDelimiter: '~', // 文件名的连接符
+        cacheGroups: { // 缓存组
+            vendors: {
+                test: /[\\/]node_modules[\\/]/,
+                priority: 1
+            }
         },
-        runtimeChunk: {
-            name: entrypoint => `manifest.${entrypoint.name}`
-          }
     },
+    runtimeChunk: {
+        name: entrypoint => `manifest.${entrypoint.name}`
+        }
+}
+
+//稳定的包单独打包 DllPlugin和DllReferencePlugin
+//html自动引入文件插件 AddAssetHtmlPlugin的使用
