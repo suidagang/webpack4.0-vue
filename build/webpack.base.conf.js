@@ -1,8 +1,8 @@
 const path = require('path');
-const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-// const AutoDllPlugin = require('autodll-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const devMode = process.env.NODE_ENV !== 'production'
 module.exports = {
     entry: {
         app: path.resolve(__dirname, '../src/main.js')
@@ -38,16 +38,17 @@ module.exports = {
             },
             {
                 test: /\.vue$/,
-                loader: 'vue-loader'
+                loader: 'vue-loader',
             },
             {
-                test: /\.css$/,
-                use: ['vue-style-loader', 'css-loader']
-            },
-            {
-                test: /\.css$/,
-                use: ['vue-style-loader', 'css-loader', 'postcss-loader']
-            }
+                test: /\.(css|less)$/,
+                use: [
+                    devMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
+                  'css-loader',
+                  'postcss-loader',
+                  'less-loader'
+                ],
+              },
         ]
     },
     plugins: [
@@ -55,13 +56,10 @@ module.exports = {
             template: path.resolve(__dirname, '../public/index.html')
         }),
         new VueLoaderPlugin(),
-        // new AutoDllPlugin({
-        //     inject: true, // will inject the DLL bundle to index.html
-        //     filename: '[name]_[hash].js',
-        //     // path: './dll',
-        //     entry: {
-        //       vendor: ['vue']
-        //     }
-        // })
+        new MiniCssExtractPlugin({
+            filename: devMode ? '[name].css' : '[name].[hash].css',
+            chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
+            allChunks: true
+        })
     ]
 }
