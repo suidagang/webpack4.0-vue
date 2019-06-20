@@ -32,3 +32,29 @@ package.json
     "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "analyz": "cross-env NODE_ENV=production npm_config_report=true npm run build"
 }
+
+//css压缩 optimize-css-assets-webpack-plugin
+plugins: [
+        new OptimizeCssAssetsPlugin() 
+    ]
+
+//压缩js
+uglifyjs-webpack-plugin
+
+//代码分割splitChunks配置
+ optimization: {
+        splitChunks: {
+            chunks: "all",
+            minSize: 30000, // 模块的最小体积
+            automaticNameDelimiter: '~', // 文件名的连接符
+            cacheGroups: { // 缓存组
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: 1
+                }
+            },
+        },
+        runtimeChunk: {
+            name: entrypoint => `manifest.${entrypoint.name}`
+          }
+    },

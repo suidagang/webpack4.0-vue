@@ -2,6 +2,7 @@
   <div>
     <h1>Hello World!111</h1>
     <button @click="btn">按钮</button>
+    <img  src="@/asset/img/1.png"/>
   </div>
 </template>
 

@@ -2,7 +2,9 @@ const merge = require('webpack-merge');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const path = require('path');
 const baseConfig = require('./webpack.base.conf');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
+const uglifyjs = require('uglifyjs-webpack-plugin');
 
 
 
@@ -14,6 +16,8 @@ const webpackConfig = merge(baseConfig, {
   },
   plugins: [
     new CleanWebpackPlugin(),
+    new OptimizeCssAssetsPlugin(),
+    new uglifyjs(),
   ]
 });
 if (process.env.npm_config_report) {
